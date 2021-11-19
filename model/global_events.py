@@ -1,0 +1,3 @@
+class GlobalEvents:
+    EVENTS = []
+
