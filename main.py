@@ -27,23 +27,24 @@ accepted = list(filter(lambda req: req.response == Response.ACCEPTED, requests))
 rejected = list(filter(lambda req: req.response == Response.REJECTED, requests))
 queue_timeout = list(filter(lambda req: req.response == Response.QUEUE_TIMEOUT, requests))
 queued = list(filter(lambda req: req.status['queue_started'] is not None, requests))
+total_ac = len(accepted) + len(queue_timeout)
 
 print('-'*100)
 print(f'Всего запросов: {len(requests)}')
-print(f'Принято:        {len(accepted)}')
+print(f'Принято:        {total_ac}')
 print(f'Отклонено:      {len(rejected)}')
 
 p_serv, p_rej = calc_service_prob()
 
 print('-'*100)
-print(f'Вероятность обслуживания (п): {round(len(accepted)/len(requests), 4)}')
+print(f'Вероятность обслуживания (п): {round(total_ac/len(requests), 4)}')
 print(f'Вероятность обслуживания (т): {round(p_serv, 4)}')
 print(f'Вероятность отказа       (п): {round(len(rejected)/len(requests), 4)}')
 print(f'Вероятность отказа       (т): {round(p_rej, 4)}')
 
 print('-'*100)
 absolute = calc_absolute()
-print(f'Абсолютная пропускная способность (п): {round(len(accepted)/Constant.MAX_TIME, 4)}')
+print(f'Абсолютная пропускная способность (п): {round(total_ac/Constant.MAX_TIME, 4)}')
 print(f'Абсолютная пропускная способность (т): {round(absolute, 4)}')
 
 
