@@ -59,7 +59,7 @@ print(f'Среднее число заявок в системе (т): {round(av
 
 print('-'*100)
 av_system_time = sum([req.status['processing_finished'] - req.status['creation_time'] if req.status['processing_finished'] is not None else Constant.MAX_TIME - req.status['creation_time'] for req in accepted]) / len(accepted)
-av_queue_time = sum([req.status['queue_finished'] - req.status['queue_started'] if req.status['queue_finished'] is not None else Constant.MAX_TIME - req.status['creation_time'] for req in queued]) / len(requests)
+av_queue_time = sum([req.status['queue_finished'] - req.status['queue_started'] if req.status['queue_finished'] is not None else Constant.MAX_TIME - req.status['creation_time'] for req in queued]) / total_ac
 print(f'Среднее время заявки в очереди (п): {round(av_queue_time, 4)}')
 print(f'Среднее время заявки в очереди (т): {round(average_time_in_queue(), 4)}')
 print(f'Среднее время заявки в системе (п): {round(av_system_time, 4)}')
